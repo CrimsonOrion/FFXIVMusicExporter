@@ -1,7 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
@@ -10,14 +9,11 @@
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.7" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.8.0" />
-    <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FFXIVMusicExporter.Core\FFXIVMusicExporter.Core.csproj" />
-    <ProjectReference Include="..\RipExd.Module\RipExd.Module.csproj" />
-    <ProjectReference Include="..\RipMusic.Module\RipMusic.Module.csproj" />
-    <ProjectReference Include="..\UpdateRealm.Module\UpdateRealm.Module.csproj" />
   </ItemGroup>
 
 </Project>

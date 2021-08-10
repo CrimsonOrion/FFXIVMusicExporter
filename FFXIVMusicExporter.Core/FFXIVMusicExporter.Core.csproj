@@ -1,16 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.0.1" />
+    <PackageReference Include="NAudio.Lame" Version="2.0.0" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
+    <PackageReference Include="WavFile" Version="0.10.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="C:\Users\jim\source\repos\CrimsonOrion\SaintCoinach\SaintCoinach\SaintCoinach.csproj" />
+    <ProjectReference Include="..\..\SaintCoinach\SaintCoinach\SaintCoinach.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="scd_header.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

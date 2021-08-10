@@ -8,27 +8,26 @@ using MahApps.Metro.Controls.Dialogs;
 
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 
 namespace FFXIVMusicExporter.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
+        private readonly IRegionManager _regionManager;
+        private readonly IRealm _realm;
         private readonly IDialogCoordinator _dialogCoordinator;
 
         public string Title => "FFXIV Music Exporter";
 
-        public IRealm Realm { get; set; }
-
         public DelegateCommand LaunchGitHubSiteCommand => new(LaunchGitHubSite);
-        public DelegateCommand UpdateRealmCommand => new(UpdateRealm);
 
-        public MainWindowViewModel(IDialogCoordinator dialogCoordinator)
+        public MainWindowViewModel(IRegionManager regionManager, IDialogCoordinator dialogCoordinator, IRealm realm)
         {
-            Realm = new Realm();
+            _regionManager = regionManager;
+            _realm = realm;
             _dialogCoordinator = dialogCoordinator;
         }
-
-        private async void UpdateRealm() => await Realm.UpdateAsync(default);
 
         private async void LaunchGitHubSite()
         {
@@ -60,5 +59,8 @@ namespace FFXIVMusicExporter.ViewModels
             }
             await controller.CloseAsync();
         }
+
+        private void Navigate(string navigationRegion, string navigationView, NavigationParameters navigationParameters) => _regionManager.RequestNavigate(navigationRegion, navigationView, navigationParameters);
+        private void Navigate(string navigationRegion, string navigationView) => _regionManager.RequestNavigate(navigationRegion, navigationView);
     }
 }

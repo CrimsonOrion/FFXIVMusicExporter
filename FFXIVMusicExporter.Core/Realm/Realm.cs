@@ -1,17 +1,19 @@
-﻿using System.IO;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 
 using SaintCoinach;
 
 namespace FFXIVMusicExporter.Core
 {
+    /// <summary>
+    /// Base Class for FFXIV Data Manipulation
+    /// </summary>
     public class Realm : IRealm
     {
-        private readonly string _gamePath = Path.Combine(@"J:\", "SquareEnix", "FINAL FANTASY XIV - A Realm Reborn");
+
         public ARealmReversed RealmReversed { get; }
 
-        public Realm() => RealmReversed = new(_gamePath, SaintCoinach.Ex.Language.English);
+        public Realm(ARealmReversed realm) => RealmReversed = realm;
 
         public async Task<UpdateReport?> UpdateAsync(CancellationToken cancellationToken)
         {

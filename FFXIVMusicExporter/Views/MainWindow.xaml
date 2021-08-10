@@ -7,7 +7,7 @@
     xmlns:prism="http://prismlibrary.com/"
     xmlns:theming="urn:controlzex"
     Title="{Binding Title}"
-    Width="500"
+    Width="700"
     Height="500"
     Dialog:DialogParticipation.Register="{Binding}"
     prism:ViewModelLocator.AutoWireViewModel="True"
@@ -36,7 +36,17 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <Button Grid.Column="0" Grid.Row="0" Content="Update Realm" Command="{Binding UpdateRealmCommand}"
-                Margin="5" Style="{DynamicResource MahApps.Styles.Button.MetroSquare.Accent}" />
+        <TabControl Height="auto"
+                    Style="{DynamicResource MahApps.Styles.TabControl.AnimatedSingleRow}">
+            <mah:MetroTabItem Header="Update Realm">
+                <ContentControl prism:RegionManager.RegionName="UpdateRealmRegion" />
+            </mah:MetroTabItem>
+            <mah:MetroTabItem Header="Rip Music">
+                <ContentControl prism:RegionManager.RegionName="RipMusicRegion" />
+            </mah:MetroTabItem>
+            <mah:MetroTabItem Header="Rip EXD">
+                <ContentControl prism:RegionManager.RegionName="RipExdRegion" />
+            </mah:MetroTabItem>
+        </TabControl>
     </Grid>
 </mah:MetroWindow>

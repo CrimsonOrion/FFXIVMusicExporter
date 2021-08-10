@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="RipMusic.Module.Views.RipMusicView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:prism="http://prismlibrary.com/"
+             Dialog:DialogParticipation.Register="{Binding}"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0"
+                Grid.Column="0"
+                Content="Rip Music"
+                Command="{Binding RipMusicCommand}"
+                Margin="10"
+                Style="{DynamicResource MahApps.Styles.Button.MetroSquare.Accent}"
+                ToolTip="Rip the .OGG music files from the latest installed version of FFXIV" 
+                />
+
+        <TextBox Grid.Row="1"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="2"
+                 Text="{Binding UpdateText, UpdateSourceTrigger=PropertyChanged}"
+                 MinHeight="200"
+                 MinWidth="200"
+                 IsReadOnly="True" 
+                 Style="{DynamicResource MahApps.Styles.TextBox}"
+                 VerticalScrollBarVisibility="auto"
+                 />
+
+    </Grid>
+</UserControl>
