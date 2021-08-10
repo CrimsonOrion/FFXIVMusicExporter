@@ -1,0 +1,42 @@
+﻿<mah:MetroWindow x:Class="FFXIVMusicExporter.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:theming="urn:controlzex"
+    Title="{Binding Title}"
+    Width="500"
+    Height="500"
+    Dialog:DialogParticipation.Register="{Binding}"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+                 ShowIconOnTitleBar="true"
+    WindowStartupLocation="CenterScreen">
+
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands>
+            <Button
+                Command="{Binding LaunchGitHubSiteCommand}"
+                ToolTip="Open up the GitHub site using default browser">
+                <iconPacks:PackIconModern
+                    Width="22"
+                    Height="22"
+                    Kind="SocialGithubOctocat" />
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Button Grid.Column="0" Grid.Row="0" Content="Update Realm" Command="{Binding UpdateRealmCommand}"
+                Margin="5" Style="{DynamicResource MahApps.Styles.Button.MetroSquare.Accent}" />
+    </Grid>
+</mah:MetroWindow>

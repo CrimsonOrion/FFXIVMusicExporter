@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31521.260
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVMusicExporter", "FFXIVMusicExporter\FFXIVMusicExporter.csproj", "{5543A4C6-0F2B-408F-B4FC-D4FDFC303DF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVMusicExporter.Core", "FFXIVMusicExporter.Core\FFXIVMusicExporter.Core.csproj", "{2BEBEB8B-E020-45BA-AB16-92E4A9004E56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{66E125BD-0279-4FAE-A32D-61465DEC2FB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaintCoinach", "C:\Users\jim\source\repos\CrimsonOrion\SaintCoinach\SaintCoinach\SaintCoinach.csproj", "{8A7D65EB-3DE3-4631-B286-CC73A3126002}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{85884D65-996E-413A-BF09-01512708322E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5543A4C6-0F2B-408F-B4FC-D4FDFC303DF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5543A4C6-0F2B-408F-B4FC-D4FDFC303DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5543A4C6-0F2B-408F-B4FC-D4FDFC303DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5543A4C6-0F2B-408F-B4FC-D4FDFC303DF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BEBEB8B-E020-45BA-AB16-92E4A9004E56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BEBEB8B-E020-45BA-AB16-92E4A9004E56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BEBEB8B-E020-45BA-AB16-92E4A9004E56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BEBEB8B-E020-45BA-AB16-92E4A9004E56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A7D65EB-3DE3-4631-B286-CC73A3126002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A7D65EB-3DE3-4631-B286-CC73A3126002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A7D65EB-3DE3-4631-B286-CC73A3126002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A7D65EB-3DE3-4631-B286-CC73A3126002}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2BEBEB8B-E020-45BA-AB16-92E4A9004E56} = {66E125BD-0279-4FAE-A32D-61465DEC2FB8}
+		{8A7D65EB-3DE3-4631-B286-CC73A3126002} = {66E125BD-0279-4FAE-A32D-61465DEC2FB8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5E1EC68-AD86-4F03-8711-906089FEBB60}
+	EndGlobalSection
+EndGlobal
