@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RipExd.Module.Views
+namespace RipExd.Module.Views;
+
+/// <summary>
+/// Interaction logic for RipExdView.xaml
+/// </summary>
+public partial class RipExdView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for RipExdView.xaml
-    /// </summary>
-    public partial class RipExdView : UserControl
+    public RipExdView()
     {
-        public RipExdView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

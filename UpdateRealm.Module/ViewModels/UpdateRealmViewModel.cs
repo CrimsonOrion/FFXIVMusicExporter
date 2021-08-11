@@ -3,38 +3,37 @@
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace UpdateRealm.Module.ViewModels
+namespace UpdateRealm.Module.ViewModels;
+
+public class UpdateRealmViewModel : BindableBase
 {
-    public class UpdateRealmViewModel : BindableBase
+    private readonly IRealm _realm;
+
+    private string _updateText = string.Empty;
+    public string UpdateText
     {
-        private readonly IRealm _realm;
+        get => _updateText;
+        set => SetProperty(ref _updateText, value);
+    }
 
-        private string _updateText = string.Empty;
-        public string UpdateText
+    public DelegateCommand UpdateRealmCommand => new(UpdateRealm);
+
+    public UpdateRealmViewModel(IRealm realm) => _realm = realm;
+
+    private async void UpdateRealm()
+    {
+        SaintCoinach.UpdateReport? updateReport = await _realm.UpdateAsync(new System.Threading.CancellationToken());
+
+        if (updateReport is not null)
         {
-            get => _updateText;
-            set => SetProperty(ref _updateText, value);
+            foreach (SaintCoinach.Ex.Relational.Update.IChange? change in updateReport.Changes)
+            {
+                UpdateText += $"{change}\r\n\r\n";
+            }
         }
-
-        public DelegateCommand UpdateRealmCommand => new(UpdateRealm);
-
-        public UpdateRealmViewModel(IRealm realm) => _realm = realm;
-
-        private async void UpdateRealm()
+        else
         {
-            SaintCoinach.UpdateReport? updateReport = await _realm.UpdateAsync(new System.Threading.CancellationToken());
-
-            if (updateReport is not null)
-            {
-                foreach (SaintCoinach.Ex.Relational.Update.IChange? change in updateReport.Changes)
-                {
-                    UpdateText += $"{change}\r\n\r\n";
-                }
-            }
-            else
-            {
-                UpdateText = "Running Current Version";
-            }
+            UpdateText = "Running Current Version";
         }
     }
 }

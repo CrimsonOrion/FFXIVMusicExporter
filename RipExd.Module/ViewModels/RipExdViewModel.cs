@@ -9,46 +9,39 @@ using MahApps.Metro.Controls.Dialogs;
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace RipExd.Module.ViewModels
+namespace RipExd.Module.ViewModels;
+
+public class RipExdViewModel : BindableBase
 {
-    public class RipExdViewModel : BindableBase
+    private string _updateText = string.Empty;
+    private IDialogCoordinator _dialogCoordinator;
+
+    public string UpdateText
     {
-        private readonly IRealm _realm;
-        IRipBGMService _ripBGMService;
+        get => _updateText;
+        set => SetProperty(ref _updateText, value);
+    }
 
-        private string _updateText = string.Empty;
-        private IDialogCoordinator _dialogCoordinator;
+    public DelegateCommand RipExdCommand => new(RipExd);
 
-        public string UpdateText
+    public RipExdViewModel(IRealm realm, IDialogCoordinator dialogCoordinator, IRipBGMService ripBGMService)
+    {
+        _dialogCoordinator = dialogCoordinator;
+    }
+
+    private async void RipExd()
+    {
+        UpdateText = "Ripping EXD files...";
+        ProgressDialogController controller = await _dialogCoordinator.ShowProgressAsync(this, "Opening", UpdateText);
+
+        try
         {
-            get => _updateText;
-            set => SetProperty(ref _updateText, value);
+            controller.SetIndeterminate();
         }
-
-        public DelegateCommand RipExdCommand => new(RipExd);
-
-        public RipExdViewModel(IRealm realm, IDialogCoordinator dialogCoordinator, IRipBGMService ripBGMService)
+        catch (Exception ex)
         {
-            _realm = realm;
-            _dialogCoordinator = dialogCoordinator;
-            _ripBGMService = ripBGMService;
+            await _dialogCoordinator.ShowMessageAsync(this, "Error", ex.Message);
         }
-
-        private async void RipExd()
-        {
-            UpdateText = "Ripping EXD files...";
-            ProgressDialogController controller = await _dialogCoordinator.ShowProgressAsync(this, "Opening", "Opening Browser");
-
-            try
-            {
-                controller.SetIndeterminate();
-                await _ripBGMService.GetFilesAsync(new System.Threading.CancellationToken());
-            }
-            catch (Exception ex)
-            {
-                await _dialogCoordinator.ShowMessageAsync(this, "Error", ex.Message);
-            }
-            await controller.CloseAsync();
-        }
+        await controller.CloseAsync();
     }
 }

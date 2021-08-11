@@ -5,9 +5,13 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
+using FFXIVMusicExporter.Core.Events;
+
 using NAudio.Lame;
 
 using NAudio.Wave;
+
+using Prism.Events;
 
 using WavFile;
 
@@ -15,13 +19,16 @@ namespace FFXIVMusicExporter.Core.Music
 {
     public class WavToMP3Service : IWavToMP3Service
     {
+        private IEventAggregator _eventAggregator;
+
         //private readonly ICustomLogger _logger;
         //private readonly ISendMessageEvent _sendMessageEvent;
 
-        public WavToMP3Service()//ICustomLogger logger, ISendMessageEvent sendMessageEvent)
+        public WavToMP3Service(IEventAggregator eventAggregator)//ICustomLogger logger, ISendMessageEvent sendMessageEvent)
         {
             //_logger = logger;
             //_sendMessageEvent = sendMessageEvent;
+            _eventAggregator = eventAggregator;
         }
 
         public void WaveToMP3(string waveFileName, string mp3FileName, int bitRate = 192)
@@ -30,6 +37,7 @@ namespace FFXIVMusicExporter.Core.Music
             using var writer = new LameMP3FileWriter(mp3FileName, reader.WaveFormat, bitRate);
             reader.CopyTo(writer);
             var message = $"{mp3FileName} created.";
+            _eventAggregator.GetEvent<RipBGMEvent>().Publish(message);
             //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(message));
             //_logger.LogInformation(message);
         }
@@ -40,6 +48,7 @@ namespace FFXIVMusicExporter.Core.Music
             using var writer = new WaveFileWriter(waveFileName, reader.WaveFormat);
             reader.CopyTo(writer);
             var message = $"{waveFileName} created.";
+            _eventAggregator.GetEvent<RipBGMEvent>().Publish(message);
             //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(message));
             //_logger.LogInformation(message);
         }
@@ -69,6 +78,7 @@ namespace FFXIVMusicExporter.Core.Music
                 if (fileExists || fileExistsMultiChannel || fileChannelSplit)
                 {
                     var skipMessage = await Task.Run(() => fileExists ? $"{mp3File} exists. Skipping." : fileExistsMultiChannel ? $"{mp3File}.Battle & {mp3File}.Dungeon exists. Skipping." : $"{mp3File} is channel split. Skipping.");
+                    _eventAggregator.GetEvent<RipBGMEvent>().Publish(skipMessage);
                     //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(skipMessage));
                     //_logger.LogInformation(skipMessage);
                     skipped++;
@@ -90,12 +100,14 @@ namespace FFXIVMusicExporter.Core.Music
                 catch (Exception)
                 {
                     var errorMessage = $"Unable to convert {mp3File}";
+                    _eventAggregator.GetEvent<RipBGMEvent>().Publish(errorMessage);
                     //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(errorMessage));
                     //_logger.LogError(ex, errorMessage);
                     failed++;
                 }
             }
             var message = $"Completed MP3 Conversion. {processed} converted. {skipped} skipped. {failed} failed.";
+            _eventAggregator.GetEvent<RipBGMEvent>().Publish(message);
             //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(message));
             //_logger.LogInformation(message);
         }
@@ -137,6 +149,7 @@ namespace FFXIVMusicExporter.Core.Music
                     await reader.CopyToAsync(writer);
                 }
                 var createMessage = $"{mp3FileName} created";
+                _eventAggregator.GetEvent<RipBGMEvent>().Publish(createMessage);
                 //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(createMessage));
                 //_logger.LogInformation(createMessage);
             }
@@ -158,6 +171,7 @@ namespace FFXIVMusicExporter.Core.Music
                     }
                 }
                 var createMessage = $"{mp3FileName} created";
+                _eventAggregator.GetEvent<RipBGMEvent>().Publish(createMessage);
                 //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(createMessage));
                 //_logger.LogInformation(createMessage);
             }
@@ -212,12 +226,14 @@ namespace FFXIVMusicExporter.Core.Music
                 bytesTotal = splitter.SplitWavFile(fileName, outputPath, CancellationToken.None);
                 sw.Stop();
                 var message = $"Data bytes processed: {bytesTotal} ({Math.Round((double)bytesTotal / (1024 * 1024), 1)} MB)\r\nElapsed time: {sw.Elapsed}";
+                _eventAggregator.GetEvent<RipBGMEvent>().Publish(message);
                 //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(message));
                 //_logger.LogInformation(message);
             }
             catch (Exception)
             {
                 var errorMessage = $"Problem splitting {fileName}.";
+                _eventAggregator.GetEvent<RipBGMEvent>().Publish(errorMessage);
                 //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(errorMessage));
                 //_logger.LogError(ex, errorMessage);
             }

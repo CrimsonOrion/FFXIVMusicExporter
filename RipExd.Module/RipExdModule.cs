@@ -6,14 +6,13 @@ using Prism.Regions;
 
 using RipExd.Module.Views;
 
-namespace RipExd.Module
-{
-    public class RipExdModule : IModule
-    {
-        public void OnInitialized(IContainerProvider containerProvider) => containerProvider
-                .Resolve<IRegionManager>()
-                .RegisterViewWithRegion(KnownRegionNames.RipExdRegionName, typeof(RipExdView));
+namespace RipExd.Module;
 
-        public void RegisterTypes(IContainerRegistry containerRegistry) => containerRegistry.RegisterForNavigation<RipExdView>();
-    }
+public class RipExdModule : IModule
+{
+    public void OnInitialized(IContainerProvider containerProvider) => containerProvider
+            .Resolve<IRegionManager>()
+            .RegisterViewWithRegion(KnownRegionNames.RipExdRegionName, typeof(RipExdView));
+
+    public void RegisterTypes(IContainerRegistry containerRegistry) => containerRegistry.RegisterForNavigation<RipExdView>();
 }

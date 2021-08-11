@@ -8,7 +8,6 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -17,25 +16,43 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="0"
-                Grid.Column="0"
+        <StackPanel Grid.Row="0"
+                    Grid.Column="0"
+                    Orientation="Horizontal">
+            <Button
                 Content="Rip Music"
                 Command="{Binding RipMusicCommand}"
                 Margin="10"
                 Style="{DynamicResource MahApps.Styles.Button.MetroSquare.Accent}"
                 ToolTip="Rip the .OGG music files from the latest installed version of FFXIV" 
                 />
+            <Button
+                Content="Ogg => Wav"
+                Command="{Binding OggToWavCommand}"
+                Margin="10"
+                Style="{DynamicResource MahApps.Styles.Button.MetroSquare.Accent}"
+                ToolTip="Convert .OGG music files to .WAV" 
+                />
+            <Button
+                Content="Wav => MP3"
+                Command="{Binding WavToMP3Command}"
+                Margin="10"
+                Style="{DynamicResource MahApps.Styles.Button.MetroSquare.Accent}"
+                ToolTip="Convert .WAV music files to .MP3" 
+                />
+        </StackPanel>
 
-        <TextBox Grid.Row="1"
-                 Grid.Column="0"
-                 Grid.ColumnSpan="2"
-                 Text="{Binding UpdateText, UpdateSourceTrigger=PropertyChanged}"
-                 MinHeight="200"
-                 MinWidth="200"
-                 IsReadOnly="True" 
-                 Style="{DynamicResource MahApps.Styles.TextBox}"
-                 VerticalScrollBarVisibility="auto"
+        <ScrollViewer Grid.Row="1"
+                      Grid.Column="0"
+                      MinHeight="200"
+                      Margin="2"
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Disabled">
+            <TextBox 
+                 Text="{Binding UpdateText}"
+                BorderThickness="1"
                  />
-
+        </ScrollViewer>
+        
     </Grid>
 </UserControl>

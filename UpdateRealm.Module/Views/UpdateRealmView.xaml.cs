@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UpdateRealm.Module.Views
+namespace UpdateRealm.Module.Views;
+
+/// <summary>
+/// Interaction logic for UpdateRealmView.xaml
+/// </summary>
+public partial class UpdateRealmView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for UpdateRealmView.xaml
-    /// </summary>
-    public partial class UpdateRealmView : UserControl
+    public UpdateRealmView()
     {
-        public UpdateRealmView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

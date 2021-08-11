@@ -6,14 +6,13 @@ using Prism.Regions;
 
 using UpdateRealm.Module.Views;
 
-namespace UpdateRealm.Module
-{
-    public class UpdateRealmModule : IModule
-    {
-        public void OnInitialized(IContainerProvider containerProvider) => containerProvider
-                .Resolve<IRegionManager>()
-                .RegisterViewWithRegion(KnownRegionNames.UpdateRealmRegionName, typeof(UpdateRealmView));
+namespace UpdateRealm.Module;
 
-        public void RegisterTypes(IContainerRegistry containerRegistry) => containerRegistry.RegisterForNavigation<UpdateRealmView>();
-    }
+public class UpdateRealmModule : IModule
+{
+    public void OnInitialized(IContainerProvider containerProvider) => containerProvider
+            .Resolve<IRegionManager>()
+            .RegisterViewWithRegion(KnownRegionNames.UpdateRealmRegionName, typeof(UpdateRealmView));
+
+    public void RegisterTypes(IContainerRegistry containerRegistry) => containerRegistry.RegisterForNavigation<UpdateRealmView>();
 }

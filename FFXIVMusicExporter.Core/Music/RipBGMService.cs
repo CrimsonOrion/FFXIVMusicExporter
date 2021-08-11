@@ -3,6 +3,10 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
+using FFXIVMusicExporter.Core.Events;
+
+using Prism.Events;
+
 using SaintCoinach.Sound;
 
 using SaintCoinach.Xiv;
@@ -12,8 +16,13 @@ namespace FFXIVMusicExporter.Core.Music
     public class RipBGMService : IRipBGMService
     {
         private readonly IRealm _realm;
+        private readonly IEventAggregator _eventAggregator;
 
-        public RipBGMService(IRealm realm) => _realm = realm;
+        public RipBGMService(IRealm realm, IEventAggregator eventAggregator)
+        {
+            _realm = realm;
+            _eventAggregator = eventAggregator;
+        }
 
         public async Task GetFilesAsync(CancellationToken cancellationToken)
         {
@@ -35,6 +44,7 @@ namespace FFXIVMusicExporter.Core.Music
                         if (await Task.Run(() => ExportFile(path, null)))
                         {
                             var successMessage = $"{path} exported.";
+                            _eventAggregator.GetEvent<RipBGMEvent>().Publish(successMessage);
                             //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(successMessage));
                             //_logger.LogInformation(successMessage);
                             success++;
@@ -42,6 +52,7 @@ namespace FFXIVMusicExporter.Core.Music
                         else
                         {
                             var notFoundMessage = $"File {path} not found.";
+                            _eventAggregator.GetEvent<RipBGMEvent>().Publish(notFoundMessage);
                             //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(notFoundMessage));
                             //_logger.LogInformation(notFoundMessage);
                             fail++;
@@ -50,6 +61,7 @@ namespace FFXIVMusicExporter.Core.Music
                     catch (Exception)
                     {
                         var errorMessage = $"Could not export {path}.";
+                        _eventAggregator.GetEvent<RipBGMEvent>().Publish(errorMessage);
                         //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(errorMessage));
                         //_logger.LogError(ex, errorMessage);
                         fail++;
@@ -77,6 +89,7 @@ namespace FFXIVMusicExporter.Core.Music
                         if (await Task.Run(() => ExportFile(filePath, name)))
                         {
                             var successMessage = $"{filePath}-{name} exported.";
+                            _eventAggregator.GetEvent<RipBGMEvent>().Publish(successMessage);
                             //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(successMessage));
                             //_logger.LogInformation(successMessage);
                             success++;
@@ -84,6 +97,7 @@ namespace FFXIVMusicExporter.Core.Music
                         else
                         {
                             var notFoundMessage = $"File {filePath}-{name} not found.";
+                            _eventAggregator.GetEvent<RipBGMEvent>().Publish(notFoundMessage);
                             //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(notFoundMessage));
                             //_logger.LogInformation(notFoundMessage);
                             fail++;
@@ -92,6 +106,7 @@ namespace FFXIVMusicExporter.Core.Music
                     catch (Exception)
                     {
                         var errorMessage = $"Could not export {filePath}-{name}.";
+                        _eventAggregator.GetEvent<RipBGMEvent>().Publish(errorMessage);
                         //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(errorMessage));
                         //_logger.LogError(ex, errorMessage);
                         fail++;
@@ -100,6 +115,7 @@ namespace FFXIVMusicExporter.Core.Music
             }
 
             var message = $"{success} files exported. {fail} files failed.";
+            _eventAggregator.GetEvent<RipBGMEvent>().Publish(message);
             //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(message));
             //_logger.LogInformation(message);
         }
@@ -107,7 +123,7 @@ namespace FFXIVMusicExporter.Core.Music
         private bool ExportFile(string filePath, string suffix)
         {
             var result = false;
-            if (_realm.RealmReversed.Packs.TryGetFile(filePath, out var file))
+            if (_realm.RealmReversed.Packs.TryGetFile(filePath, out SaintCoinach.IO.File? file))
             {
                 var scdFile = new ScdFile(file);
                 var count = 0;

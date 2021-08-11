@@ -5,7 +5,10 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
+using FFXIVMusicExporter.Core.Events;
 using FFXIVMusicExporter.Core.Helpers;
+
+using Prism.Events;
 
 namespace FFXIVMusicExporter.Core.Music
 {
@@ -13,11 +16,13 @@ namespace FFXIVMusicExporter.Core.Music
     {
         //private readonly ICustomLogger _logger;
         //private readonly ISendMessageEvent _sendMessageEvent;
+        private readonly IEventAggregator _eventAggregator;
 
-        public OggToWavService()//ICustomLogger logger, ISendMessageEvent sendMessageEvent)
+        public OggToWavService(IEventAggregator eventAggregator)//ICustomLogger logger, ISendMessageEvent sendMessageEvent)
         {
             //_logger = logger;
             //_sendMessageEvent = sendMessageEvent;
+            _eventAggregator = eventAggregator;
         }
 
         public async Task ConvertToWavAsync(IEnumerable<string> oggFiles, CancellationToken cancellationToken)
@@ -39,6 +44,7 @@ namespace FFXIVMusicExporter.Core.Music
                 if (File.Exists(wavFile))
                 {
                     var skipMessage = await Task.Run(() => $"{wavFile} exists. Skipping.");
+                    _eventAggregator.GetEvent<RipBGMEvent>().Publish(skipMessage);
                     //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(skipMessage));
                     //_logger.LogInformation(skipMessage);
                     skipped++;
@@ -53,12 +59,14 @@ namespace FFXIVMusicExporter.Core.Music
                 catch (Exception)
                 {
                     var errorMessage = $"Unable to convert {oggFile}";
+                    _eventAggregator.GetEvent<RipBGMEvent>().Publish(errorMessage);
                     //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(errorMessage));
                     //_logger.LogError(ex, errorMessage);
                     failed++;
                 }
             }
             var message = $"Completed WAV Conversion. {processed} converted. {skipped} skipped. {failed} failed.";
+            _eventAggregator.GetEvent<RipBGMEvent>().Publish(message);
             //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(message));
             //_logger.LogInformation(message);
         }
@@ -75,6 +83,7 @@ namespace FFXIVMusicExporter.Core.Music
             process.StartInfo.RedirectStandardError = true;
             var output = await RunExternalProcess.LaunchAsync(process);
             var message = $"{Path.GetFileName(wavFile)} created.{output}";
+            _eventAggregator.GetEvent<RipBGMEvent>().Publish(message);
             //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(message));
             //_logger.LogInformation(message);
         }

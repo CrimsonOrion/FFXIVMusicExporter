@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RipMusic.Module.Views
+namespace RipMusic.Module.Views;
+
+/// <summary>
+/// Interaction logic for RipMusicView.xaml
+/// </summary>
+public partial class RipMusicView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for RipMusicView.xaml
-    /// </summary>
-    public partial class RipMusicView : UserControl
+    public RipMusicView()
     {
-        public RipMusicView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
