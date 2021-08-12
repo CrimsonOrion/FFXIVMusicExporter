@@ -15,13 +15,13 @@ namespace RipMusic.Module.ViewModels;
 public class RipMusicViewModel : BindableBase
 {
 
-    private string _updateText = string.Empty;
+    private ObservableCollection<string> _updateText = new();
     private readonly IRipBGMService _ripBGMService;
     private readonly IOggToWavService _oggToWavService;
     private readonly IWavToMP3Service _wavToMP3Service;
     private readonly IEventAggregator _eventAggregator;
 
-    public string UpdateText
+    public ObservableCollection<string> UpdateText
     {
         get => _updateText;
         set => SetProperty(ref _updateText, value);
@@ -45,5 +45,5 @@ public class RipMusicViewModel : BindableBase
     private async void ConvertOggToWav() => await _oggToWavService.ConvertToWavAsync(Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "OGG")), new System.Threading.CancellationToken());
     private async void ConvertWavToMP3() => await _wavToMP3Service.ConvertToMP3Async(Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "WAV")), new System.Threading.CancellationToken());
 
-    private void PublishMessage(string message) => UpdateText = message;
+    private void PublishMessage(string message) => UpdateText.Add(message);
 }

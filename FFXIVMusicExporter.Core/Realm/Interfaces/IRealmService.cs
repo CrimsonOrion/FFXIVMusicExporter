@@ -5,10 +5,10 @@ using SaintCoinach;
 
 namespace FFXIVMusicExporter.Core
 {
-    public interface IRealm
+    public interface IRealmService
     {
         ARealmReversed RealmReversed { get; }
 
-        Task<UpdateReport?> UpdateAsync(CancellationToken cancellationToken);
+        Task UpdateAsync(CancellationToken cancellationToken);
     }
 }

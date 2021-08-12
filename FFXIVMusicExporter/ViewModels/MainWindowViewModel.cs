@@ -2,8 +2,6 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-using FFXIVMusicExporter.Core;
-
 using MahApps.Metro.Controls.Dialogs;
 
 using Prism.Commands;
@@ -15,17 +13,15 @@ namespace FFXIVMusicExporter.ViewModels;
 public class MainWindowViewModel : BindableBase
 {
     private readonly IRegionManager _regionManager;
-    private readonly IRealm _realm;
     private readonly IDialogCoordinator _dialogCoordinator;
 
-    public string Title => "FFXIV Music Exporter";
+    public static string Title => "FFXIV Music Exporter";
 
     public DelegateCommand LaunchGitHubSiteCommand => new(LaunchGitHubSite);
 
-    public MainWindowViewModel(IRegionManager regionManager, IDialogCoordinator dialogCoordinator, IRealm realm)
+    public MainWindowViewModel(IRegionManager regionManager, IDialogCoordinator dialogCoordinator)
     {
         _regionManager = regionManager;
-        _realm = realm;
         _dialogCoordinator = dialogCoordinator;
     }
 
@@ -47,10 +43,7 @@ public class MainWindowViewModel : BindableBase
         {
             if (noBrowser.ErrorCode == -2147467259)
             {
-                // need a width of 700 to see all 4 selections, 535 to see 3, 355 to see 2.
-                MessageDialogResult result = await _dialogCoordinator.ShowMessageAsync(this, "No Default Browser Set", noBrowser.Message, MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary,
-                    new MetroDialogSettings { AffirmativeButtonText = "Yes", NegativeButtonText = "No", FirstAuxiliaryButtonText = "Maybe", SecondAuxiliaryButtonText = "So" });
-
+                await _dialogCoordinator.ShowMessageAsync(this, "No Default Browser Set", noBrowser.Message);
             }
         }
         catch (Exception other)

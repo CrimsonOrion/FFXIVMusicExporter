@@ -24,7 +24,7 @@ public class RipExdViewModel : BindableBase
 
     public DelegateCommand RipExdCommand => new(RipExd);
 
-    public RipExdViewModel(IRealm realm, IDialogCoordinator dialogCoordinator, IRipBGMService ripBGMService)
+    public RipExdViewModel(IRealmService realm, IDialogCoordinator dialogCoordinator, IRipBGMService ripBGMService)
     {
         _dialogCoordinator = dialogCoordinator;
     }

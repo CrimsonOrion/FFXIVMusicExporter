@@ -26,15 +26,13 @@
                 ToolTip="Update data to latest installed version of FFXIV" 
                 />
 
-        <TextBox Grid.Row="1"
+        <ListBox Grid.Row="1"
                  Grid.Column="0"
                  Grid.ColumnSpan="2"
-                 Text="{Binding UpdateText, UpdateSourceTrigger=PropertyChanged}"
+                 ItemsSource="{Binding UpdateText}"
                  MinHeight="200"
                  MinWidth="200"
-                 IsReadOnly="True" 
-                 Style="{DynamicResource MahApps.Styles.TextBox}"
-                 VerticalScrollBarVisibility="auto"
+                 Style="{StaticResource MahApps.Styles.ListBox.Virtualized}"
                  />
         
     </Grid>

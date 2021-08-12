@@ -12,12 +12,12 @@ namespace FFXIVMusicExporter.Core.Weather
 {
     public class Weather : IWeather
     {
-        private readonly IRealm _realm;
+        private readonly IRealmService _realm;
         //private readonly ISendMessageEvent _sendMessageEvent;
 
         private readonly List<TerritoryType> _territoryList = new List<TerritoryType>();
 
-        public Weather(IRealm realm)
+        public Weather(IRealmService realm)
         {
             _realm = realm;
 

@@ -1,16 +1,22 @@
-﻿using FFXIVMusicExporter.Core;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+
+using FFXIVMusicExporter.Core;
+using FFXIVMusicExporter.Core.Events;
 
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 
 namespace UpdateRealm.Module.ViewModels;
 
 public class UpdateRealmViewModel : BindableBase
 {
-    private readonly IRealm _realm;
+    private ObservableCollection<string> _updateText = new();
+    private readonly IRealmService _realm;
+    private readonly IEventAggregator _eventAggregator;
 
-    private string _updateText = string.Empty;
-    public string UpdateText
+    public ObservableCollection<string> UpdateText
     {
         get => _updateText;
         set => SetProperty(ref _updateText, value);
@@ -18,22 +24,30 @@ public class UpdateRealmViewModel : BindableBase
 
     public DelegateCommand UpdateRealmCommand => new(UpdateRealm);
 
-    public UpdateRealmViewModel(IRealm realm) => _realm = realm;
+    public UpdateRealmViewModel(IEventAggregator eventAggregator, IRealmService realm)
+    {
+        _realm = realm;
+        _eventAggregator = eventAggregator;
+        _eventAggregator.GetEvent<UpdateRealmEvent>().Subscribe(PublishMessage);
+    }
 
     private async void UpdateRealm()
     {
-        SaintCoinach.UpdateReport? updateReport = await _realm.UpdateAsync(new System.Threading.CancellationToken());
+        await _realm.UpdateAsync(new System.Threading.CancellationToken());
 
-        if (updateReport is not null)
-        {
-            foreach (SaintCoinach.Ex.Relational.Update.IChange? change in updateReport.Changes)
-            {
-                UpdateText += $"{change}\r\n\r\n";
-            }
-        }
-        else
-        {
-            UpdateText = "Running Current Version";
-        }
+        //if (updateReport is not null)
+        //{
+        //    foreach (SaintCoinach.Ex.Relational.Update.IChange? change in updateReport.Changes)
+        //    {
+        //        var updateMessage
+        //        UpdateText.Add(change);
+        //    }
+        //}
+        //else
+        //{
+        //    UpdateText.Add("Running Current Version");
+        //}
     }
+
+    private void PublishMessage(string message) => UpdateText.Add(message);
 }

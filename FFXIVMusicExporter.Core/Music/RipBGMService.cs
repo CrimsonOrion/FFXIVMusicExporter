@@ -15,10 +15,10 @@ namespace FFXIVMusicExporter.Core.Music
 {
     public class RipBGMService : IRipBGMService
     {
-        private readonly IRealm _realm;
+        private readonly IRealmService _realm;
         private readonly IEventAggregator _eventAggregator;
 
-        public RipBGMService(IRealm realm, IEventAggregator eventAggregator)
+        public RipBGMService(IRealmService realm, IEventAggregator eventAggregator)
         {
             _realm = realm;
             _eventAggregator = eventAggregator;
