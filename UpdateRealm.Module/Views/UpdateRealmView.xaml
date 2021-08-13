@@ -1,12 +1,16 @@
-﻿<UserControl x:Class="UpdateRealm.Module.Views.UpdateRealmView"
+﻿<UserControl x:Name="UC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:prism="http://prismlibrary.com/"
-             Dialog:DialogParticipation.Register="{Binding}"
+             xmlns:av="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="av" 
+    x:Class="UpdateRealm.Module.Views.UpdateRealmView"
+             mah:DialogParticipation.Register="{Binding}"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
+    <Grid x:Name="ListboxRow">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
@@ -26,14 +30,18 @@
                 ToolTip="Update data to latest installed version of FFXIV" 
                 />
 
+<!-- Doesn't work like I want -->
         <ListBox Grid.Row="1"
-                 Grid.Column="0"
-                 Grid.ColumnSpan="2"
+                      Grid.Column="0"
+                      Margin="2"
                  ItemsSource="{Binding UpdateText}"
-                 MinHeight="200"
-                 MinWidth="200"
-                 Style="{StaticResource MahApps.Styles.ListBox.Virtualized}"
-                 />
-        
+                 Height="{Binding ElementName=ListboxRow,Path=ActualHeight}"
+                 av:ItemsSource="{av:SampleData}"
+                      BorderThickness="2"
+                      BorderBrush="LightSkyBlue" />
+
+
+
+
     </Grid>
 </UserControl>

@@ -33,7 +33,8 @@ public class UpdateRealmViewModel : BindableBase
 
     private async void UpdateRealm()
     {
-        await _realm.UpdateAsync(new System.Threading.CancellationToken());
+        _eventAggregator.GetEvent<UpdateRealmEvent>().Publish("Test");
+        //await _realm.UpdateAsync(new System.Threading.CancellationToken());
 
         //if (updateReport is not null)
         //{
