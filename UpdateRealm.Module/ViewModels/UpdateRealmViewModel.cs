@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq;
 
 using FFXIVMusicExporter.Core;
 using FFXIVMusicExporter.Core.Events;
@@ -31,24 +30,11 @@ public class UpdateRealmViewModel : BindableBase
         _eventAggregator.GetEvent<UpdateRealmEvent>().Subscribe(PublishMessage);
     }
 
-    private async void UpdateRealm()
+    private async void UpdateRealm() => await _realm.UpdateAsync(new System.Threading.CancellationToken());
+
+    private void PublishMessage(string message)
     {
-        _eventAggregator.GetEvent<UpdateRealmEvent>().Publish("Test");
-        //await _realm.UpdateAsync(new System.Threading.CancellationToken());
-
-        //if (updateReport is not null)
-        //{
-        //    foreach (SaintCoinach.Ex.Relational.Update.IChange? change in updateReport.Changes)
-        //    {
-        //        var updateMessage
-        //        UpdateText.Add(change);
-        //    }
-        //}
-        //else
-        //{
-        //    UpdateText.Add("Running Current Version");
-        //}
+        UpdateText.Add(message);
+        UpdateText.Move(UpdateText.Count - 1, 0);
     }
-
-    private void PublishMessage(string message) => UpdateText.Add(message);
 }

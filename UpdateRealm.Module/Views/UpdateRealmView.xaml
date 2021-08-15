@@ -12,7 +12,6 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid x:Name="ListboxRow">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -30,18 +29,14 @@
                 ToolTip="Update data to latest installed version of FFXIV" 
                 />
 
-<!-- Doesn't work like I want -->
         <ListBox Grid.Row="1"
-                      Grid.Column="0"
-                      Margin="2"
-                 ItemsSource="{Binding UpdateText}"
-                 Height="{Binding ElementName=ListboxRow,Path=ActualHeight}"
-                 av:ItemsSource="{av:SampleData}"
-                      BorderThickness="2"
-                      BorderBrush="LightSkyBlue" />
-
-
-
+                 Grid.Column="0"
+                 Height="450"
+                 Width="750"
+                 Margin="2"
+                 BorderThickness="2"
+                 ItemsSource="{Binding UpdateText}">
+        </ListBox>
 
     </Grid>
 </UserControl>
