@@ -15,13 +15,11 @@ namespace FFXIVMusicExporter.Core.Music
     public class OggToWavService : IOggToWavService
     {
         //private readonly ICustomLogger _logger;
-        //private readonly ISendMessageEvent _sendMessageEvent;
         private readonly IEventAggregator _eventAggregator;
 
-        public OggToWavService(IEventAggregator eventAggregator)//ICustomLogger logger, ISendMessageEvent sendMessageEvent)
+        public OggToWavService(IEventAggregator eventAggregator)//ICustomLogger logger)
         {
             //_logger = logger;
-            //_sendMessageEvent = sendMessageEvent;
             _eventAggregator = eventAggregator;
         }
 
@@ -45,7 +43,6 @@ namespace FFXIVMusicExporter.Core.Music
                 {
                     var skipMessage = await Task.Run(() => $"{wavFile} exists. Skipping.");
                     _eventAggregator.GetEvent<RipBGMEvent>().Publish(skipMessage);
-                    //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(skipMessage));
                     //_logger.LogInformation(skipMessage);
                     skipped++;
                     continue;
@@ -60,14 +57,12 @@ namespace FFXIVMusicExporter.Core.Music
                 {
                     var errorMessage = $"Unable to convert {oggFile}";
                     _eventAggregator.GetEvent<RipBGMEvent>().Publish(errorMessage);
-                    //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(errorMessage));
                     //_logger.LogError(ex, errorMessage);
                     failed++;
                 }
             }
             var message = $"Completed WAV Conversion. {processed} converted. {skipped} skipped. {failed} failed.";
             _eventAggregator.GetEvent<RipBGMEvent>().Publish(message);
-            //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(message));
             //_logger.LogInformation(message);
         }
 
@@ -82,9 +77,8 @@ namespace FFXIVMusicExporter.Core.Music
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
             var output = await RunExternalProcess.LaunchAsync(process);
-            var message = $"{Path.GetFileName(wavFile)} created.{output}";
+            var message = $"{output.Trim()}\r\n{Path.GetFileName(wavFile)} created.\r\n";
             _eventAggregator.GetEvent<RipBGMEvent>().Publish(message);
-            //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(message));
             //_logger.LogInformation(message);
         }
     }

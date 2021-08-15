@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RipMusic.Module", "RipMusic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RipExd.Module", "RipExd.Module\RipExd.Module.csproj", "{42046864-C504-4B80-853F-3655D61C094C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaintCoinach", "E:\SaintCoinach\SaintCoinach\SaintCoinach.csproj", "{8A7D65EB-3DE3-4631-B286-CC73A3126002}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaintCoinach", "C:\Users\jim\source\repos\CrimsonOrion\SaintCoinach\SaintCoinach\SaintCoinach.csproj", "{2F6DCDA6-6F20-474D-B231-286128D969D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +45,10 @@ Global
 		{42046864-C504-4B80-853F-3655D61C094C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42046864-C504-4B80-853F-3655D61C094C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42046864-C504-4B80-853F-3655D61C094C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8A7D65EB-3DE3-4631-B286-CC73A3126002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A7D65EB-3DE3-4631-B286-CC73A3126002}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8A7D65EB-3DE3-4631-B286-CC73A3126002}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A7D65EB-3DE3-4631-B286-CC73A3126002}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F6DCDA6-6F20-474D-B231-286128D969D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F6DCDA6-6F20-474D-B231-286128D969D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F6DCDA6-6F20-474D-B231-286128D969D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F6DCDA6-6F20-474D-B231-286128D969D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,7 +58,7 @@ Global
 		{FC283654-E664-4310-A8B2-14F5F90218A3} = {85884D65-996E-413A-BF09-01512708322E}
 		{6C4F29E0-CE44-4331-97C2-A6B405E02103} = {85884D65-996E-413A-BF09-01512708322E}
 		{42046864-C504-4B80-853F-3655D61C094C} = {85884D65-996E-413A-BF09-01512708322E}
-		{8A7D65EB-3DE3-4631-B286-CC73A3126002} = {66E125BD-0279-4FAE-A32D-61465DEC2FB8}
+		{2F6DCDA6-6F20-474D-B231-286128D969D8} = {66E125BD-0279-4FAE-A32D-61465DEC2FB8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B5E1EC68-AD86-4F03-8711-906089FEBB60}

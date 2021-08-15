@@ -28,7 +28,7 @@ namespace FFXIVMusicExporter;
 /// </summary>
 public partial class App : PrismApplication
 {
-    private readonly string _gamePath = Path.Combine(@"E:\", "SquareEnix", "FINAL FANTASY XIV - A Realm Reborn");
+    private readonly string _gamePath = Path.Combine(@"J:\", "SquareEnix", "FINAL FANTASY XIV - A Realm Reborn");
     protected override Window CreateShell() => Container.Resolve<MainWindow>();
 
     protected override void OnStartup(StartupEventArgs e)

@@ -45,5 +45,9 @@ public class RipMusicViewModel : BindableBase
     private async void ConvertOggToWav() => await _oggToWavService.ConvertToWavAsync(Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "OGG")), new System.Threading.CancellationToken());
     private async void ConvertWavToMP3() => await _wavToMP3Service.ConvertToMP3Async(Directory.GetFiles(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), "WAV")), new System.Threading.CancellationToken());
 
-    private void PublishMessage(string message) => UpdateText.Add(message);
+    private void PublishMessage(string message)
+    {
+        UpdateText.Add(message);
+        UpdateText.Move(UpdateText.Count - 1, 0);
+    }
 }

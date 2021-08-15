@@ -45,7 +45,6 @@ namespace FFXIVMusicExporter.Core.Music
                         {
                             var successMessage = $"{path} exported.";
                             _eventAggregator.GetEvent<RipBGMEvent>().Publish(successMessage);
-                            //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(successMessage));
                             //_logger.LogInformation(successMessage);
                             success++;
                         }
@@ -53,7 +52,6 @@ namespace FFXIVMusicExporter.Core.Music
                         {
                             var notFoundMessage = $"File {path} not found.";
                             _eventAggregator.GetEvent<RipBGMEvent>().Publish(notFoundMessage);
-                            //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(notFoundMessage));
                             //_logger.LogInformation(notFoundMessage);
                             fail++;
                         }
@@ -62,7 +60,6 @@ namespace FFXIVMusicExporter.Core.Music
                     {
                         var errorMessage = $"Could not export {path}.";
                         _eventAggregator.GetEvent<RipBGMEvent>().Publish(errorMessage);
-                        //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(errorMessage));
                         //_logger.LogError(ex, errorMessage);
                         fail++;
                     }
@@ -90,7 +87,6 @@ namespace FFXIVMusicExporter.Core.Music
                         {
                             var successMessage = $"{filePath}-{name} exported.";
                             _eventAggregator.GetEvent<RipBGMEvent>().Publish(successMessage);
-                            //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(successMessage));
                             //_logger.LogInformation(successMessage);
                             success++;
                         }
@@ -98,7 +94,6 @@ namespace FFXIVMusicExporter.Core.Music
                         {
                             var notFoundMessage = $"File {filePath}-{name} not found.";
                             _eventAggregator.GetEvent<RipBGMEvent>().Publish(notFoundMessage);
-                            //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(notFoundMessage));
                             //_logger.LogInformation(notFoundMessage);
                             fail++;
                         }
@@ -107,7 +102,6 @@ namespace FFXIVMusicExporter.Core.Music
                     {
                         var errorMessage = $"Could not export {filePath}-{name}.";
                         _eventAggregator.GetEvent<RipBGMEvent>().Publish(errorMessage);
-                        //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(errorMessage));
                         //_logger.LogError(ex, errorMessage);
                         fail++;
                     }
@@ -116,7 +110,6 @@ namespace FFXIVMusicExporter.Core.Music
 
             var message = $"{success} files exported. {fail} files failed.";
             _eventAggregator.GetEvent<RipBGMEvent>().Publish(message);
-            //_sendMessageEvent.OnSendMessageEvent(new SendMessageEventArgs(message));
             //_logger.LogInformation(message);
         }
 
@@ -161,7 +154,8 @@ namespace FFXIVMusicExporter.Core.Music
                         _ => throw new NotSupportedException()
                     };
 
-                    var fileInfo = new FileInfo(Path.Combine(_realm.RealmReversed.GameVersion, Path.GetDirectoryName(filePath), extension.ToUpper().Replace(".", ""), fileNameWithoutExt + extension));
+                    //var fileInfo = new FileInfo(Path.Combine(_realm.RealmReversed.GameVersion, Path.GetDirectoryName(filePath), extension.ToUpper().Replace(".", ""), fileNameWithoutExt + extension));
+                    var fileInfo = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), extension.ToUpper().Replace(".", ""), fileNameWithoutExt + extension));
 
                     if (!fileInfo.Directory.Exists)
                     {
